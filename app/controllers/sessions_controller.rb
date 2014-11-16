@@ -2,8 +2,8 @@ class SessionsController < ApplicationController
 	
   # Logs a user in
   def create
-    user_name = params[:username].downcase
-  	user = User.find_by(username: user_name)
+    user_name = params[:email].downcase
+  	user = User.find_by(email: user_name)
   	if user and user.authenticate(params[:password])
   		session[:user_id] = user.id
   		redirect_to user_path(user)

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chicago Real Estate</title>
-  <%= favicon_link_tag "house_icon.ico" %>
+  <title>TASKr</title>
+  
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -52,7 +52,7 @@
   <div class="container">
     <% if @user && !@user.new_record? %>
     <p class="lead">
-      <%= "Welcome, #{@user.username}" %>
+      <%= "Welcome, #{@user.email}" %>
     </p>
     <% end %>
 
