@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
 
   #register with service
-  #after_validation :register_with_service
+  before_create :register_with_service
   has_secure_password
   
   private
@@ -19,14 +19,16 @@ class User < ActiveRecord::Base
   		#make registration api call
   		puts "Registering with API" 
 
-  		call = "http://recruiting-api.nextcapital.com/users?email=#{self.email}&passord=#{self.password}"
+  		call = "http://recruiting-api.nextcapital.com/users?email=#{self.email}&password=#{self.password}"
   		url = HTTParty.post(call)
   		response = JSON.parse(url.body)
   		#save remote userID
+  		puts "XXXXRESPONSEXXXX"
+  		puts response
 		self.remote_id = response["id"]
 		#store api_token for current session
 		self.api_token = response["api_token"]
-	
+		#session['api_token'] = response["api_token"]
 
   	end
 end

@@ -7,5 +7,9 @@
 
 <p>Password: <%= @user.password_digest%></p>
 
+<p>a<%= @user.remote_id %>a</p>
+<p>db: <%= @user.api_token %> </p>
+<p>Session: <%= session['api_token'] %> </p>
+
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>
