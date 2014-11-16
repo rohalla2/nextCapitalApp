@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-      #call = "http://recruiting-api.nextcapital.com/users?email=#{self.email}&password=#{self.password}"
-      #url = HTTParty.post(call)
-      #response = JSON.parse(url.body)
+    call = "http://recruiting-api.nextcapital.com/users/#{@user.remote_id}/todos.json?api_token=#{@user.api_token}"
+    url = HTTParty.get(call)
+    @todos = JSON.parse(url.body)
   end
 
   # GET /users/new
