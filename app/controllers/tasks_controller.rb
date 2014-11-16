@@ -12,11 +12,11 @@ class TasksController < ApplicationController
 
 	def update
 
-		options = { query: {user_id: @user.remote_id, api_token: @user.api_token, todo: {description: params['task'], is_complete: params['is_complete'] }}}     
+		options = { query: {api_token: @user.api_token, todo: {description: params['description'], is_complete: params['is_complete']}}}   
   		call = "http://recruiting-api.nextcapital.com/users/#{@user.remote_id}/todos/#{params['todo_id']}"
   		url = HTTParty.put(call, options)
   		response = JSON.parse(url.body)
-
+  		redirect_to @user
 	end
 
 	def edit
@@ -25,12 +25,9 @@ class TasksController < ApplicationController
   		url = HTTParty.get(call, options)
   		response = JSON.parse(url.body)
   		response = response[0]
-  		puts "RESPONSE TO FOLLOW:::A:SDLA:"
-  		puts response
-  		@description = response["description"] 
 
+  		@description = response["description"] 
   		@is_complete = response["is_complete"]
-  		 
   		@task_id = response["id"]
 	end
 

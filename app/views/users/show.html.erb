@@ -9,6 +9,7 @@
 		<thead>
 			<tr>
 				<th>Description</th>
+				<th>Status</th>
 				<th>Options</th>
 			</tr>
 		</thead>
@@ -16,19 +17,20 @@
 		<tbody>
 
 			<% @todos.each do |todo| %>
-				<% if todo["is_complete"] == true %>
+				<% if todo["is_complete"] %>
 					<tr class = "danger">
 				<% else %>
 					<tr>
 				<% end %>
 					<td><%= todo["description"] %></td>
-					<td><%= link_to "Edit Text", "/task/edit?task_id=#{todo["id"]}" %> | 
-					<% if todo["is_complete"] == true%>
-						<%= link_to "Reactivate", "/"%>
+					<td><% if todo["is_complete"]%>
+						Complete
 					<% else %>
-						<%= link_to "Mark Complete", "/"%>
-					<% end %>
+						Incomplete
+				<% end %>
 					</td>
+					<td><%= link_to "Edit Task", "/task/edit?task_id=#{todo["id"]}" %></td>
+					
 				</tr>
 			<% end %>
 
