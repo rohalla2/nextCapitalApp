@@ -1,12 +1,39 @@
 <h4>Your Tasks:</h4>
 <div class="btn btn-success pull-right">Add Task</div>
-<% if @todos.size == 0 %>
-<p>You do not currently have any todos!</p>
-<% else %>
-<% @todos.each do |todo| %>
-<%= todo %>
-<% end %>
 
+<% if @todos.size == 0 %>
+	<p>You do not currently have any todos!</p>
+<% else %>
+
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Description</th>
+				<th>Options</th>
+			</tr>
+		</thead>
+
+		<tbody>
+
+			<% @todos.each do |todo| %>
+				<% if todo["is_complete"] == true %>
+					<tr class = "danger">
+				<% else %>
+					<tr>
+				<% end %>
+					<td><%= todo["description"] %></td>
+					<td><%= link_to "Edit Text", "/task/edit?task_id=#{todo["id"]}" %> | 
+					<% if todo["is_complete"] == true%>
+						<%= link_to "Reactivate", "/"%>
+					<% else %>
+						<%= link_to "Mark Complete", "/"%>
+					<% end %>
+					</td>
+				</tr>
+			<% end %>
+
+		</tbody>
+	</table>
 <% end %> 
 
 
@@ -14,10 +41,10 @@
 	<div id="popupContact">
 		<!-- Contact Us Form -->
 		<%= form_tag("/task", name: "form") do %>
-<!--		<form action="/task" id="form" method="post" name="form"> <input id="task" name="task" placeholder="Enter Task Info..." type="text">-->
-			<%= text_field_tag(:task) %>
-			
-			<a href="javascript:%20check_empty()" id="submit">Send</a>
+		<!--		<form action="/task" id="form" method="post" name="form"> <input id="task" name="task" placeholder="Enter Task Info..." type="text">-->
+		<%= text_field_tag(:task) %>
+
+		<a href="javascript:%20check_empty()" id="submit">Send</a>
 		<% end %>
 	</div>
 </div>

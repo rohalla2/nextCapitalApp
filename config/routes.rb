@@ -9,6 +9,9 @@ NextCapitalApp::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  post '/task' => 'tasks#add'
-
+  controller :tasks do
+  	post 'task' => :add
+  	post 'task/update' => :update
+  	get 'task/edit' => :edit
+  end
 end
