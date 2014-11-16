@@ -1,10 +1,20 @@
 class User < ActiveRecord::Base
-  has_secure_password
+  
+  before_validation :downcase_username
+  before_create :downcase_username
+  before_save :downcase_username
+
+  validates :email, presence: true, uniqueness: true
 
   #register with service
-  before_create :register_with_service
-
+  #after_validation :register_with_service
+  has_secure_password
+  
   private
+  	def downcase_username
+		self.email.downcase!
+	end
+  	
   	def register_with_service
   		#make registration api call
   		puts "Registering with API" 
