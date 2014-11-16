@@ -1,6 +1,7 @@
 class StaticPagesController < ApplicationController
   def home
-  end
-  def information
+  	if @user
+  		redirect_to @user
+  	end 
   end
 end

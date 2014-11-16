@@ -9,13 +9,8 @@ class SessionsController < ApplicationController
       call = "http://recruiting-api.nextcapital.com/users/sign_in?email=#{params[:email]}&password=#{params[:password]}"
       url = HTTParty.post(call)
       response = JSON.parse(url.body)
-      puts "xxxxRESPONSExxxx"
-      puts response
       user.api_token = response["api_token"]
       user.save
-
-
-
 
   		redirect_to user_path(user)
   	else
@@ -29,7 +24,7 @@ class SessionsController < ApplicationController
     response = JSON.parse(url.body)
     @user.api_token = nil
     @user.save
-
+    
     reset_session
     redirect_to root_url , notice: "Logged out"
   end

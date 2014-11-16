@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   	def authorize
       unless User.find_by(id: session[:user_id])
-        redirect_to properties_url, notice: "You need to log in to access this feature!"
+        redirect_to root_url, notice: "You need to log in to access this feature!"
       end
     end
 

@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
-
+	before_action :authorize
+	
 	def add
 		task_text = params['task']
 
