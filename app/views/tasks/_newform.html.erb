@@ -1,0 +1,8 @@
+<%= form_tag '/task', class: "form-inline", role: "form"  do %>
+	<div class="form-group">  
+    <%= label_tag :task, 'Description:' %>
+    <%= text_field_tag :task,nil, required: true %>
+  </div>
+
+   <%= submit_tag "Add Task", class: "btn btn-default" %>
+<% end%>

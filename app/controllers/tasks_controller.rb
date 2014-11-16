@@ -21,10 +21,9 @@ class TasksController < ApplicationController
 
 	def edit
 		options = { query: {api_token: @user.api_token}}     
-  		call = "http://recruiting-api.nextcapital.com/users/#{@user.remote_id}/todos/#{params['todo_id']}"
+  		call = "http://recruiting-api.nextcapital.com/users/#{@user.remote_id}/todos/#{params['task_id']}"
   		url = HTTParty.get(call, options)
   		response = JSON.parse(url.body)
-  		response = response[0]
 
   		@description = response["description"] 
   		@is_complete = response["is_complete"]

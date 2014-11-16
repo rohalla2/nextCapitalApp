@@ -1,11 +1,12 @@
 <h4>Your Tasks:</h4>
-<div class="btn btn-success pull-right">Add Task</div>
 
+	<%= render 'tasks/newform' %>
+	<br>
 <% if @todos.size == 0 %>
 	<p>You do not currently have any todos!</p>
 <% else %>
 
-	<table class="table table-striped table-hover">
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>Description</th>
@@ -18,9 +19,9 @@
 
 			<% @todos.each do |todo| %>
 				<% if todo["is_complete"] %>
-					<tr class = "danger">
+					<tr class = "success">
 				<% else %>
-					<tr>
+					<tr class = "warning">
 				<% end %>
 					<td><%= todo["description"] %></td>
 					<td><% if todo["is_complete"]%>
@@ -37,39 +38,3 @@
 		</tbody>
 	</table>
 <% end %> 
-
-
-<div id='hidden-form'>
-	<div id="popupContact">
-		<!-- Contact Us Form -->
-		<%= form_tag("/task", name: "form") do %>
-		<!--		<form action="/task" id="form" method="post" name="form"> <input id="task" name="task" placeholder="Enter Task Info..." type="text">-->
-		<%= text_field_tag(:task) %>
-
-		<a href="javascript:%20check_empty()" id="submit">Send</a>
-		<% end %>
-	</div>
-</div>
-
-<button id="popup" onclick="div_show()">Popup</button>
-<!--from http://www.formget.com/how-to-create-pop-up-contact-form-using-javascript/ -->
-
-<script type="text/javascript">
-function check_empty() {
-	if (document.getElementById('task').value == "") {
-		alert("Please Enter a Task Name!");
-	} else {
-		document.getElementById('form').submit();
-		alert("Form Submitted Successfully...");
-	}
-}
-//Function To Display Popup
-function div_show() {
-	document.getElementById('hidden-form').style.display = "block";
-}
-//Function to Hide Popup
-function div_hide(){
-	document.getElementById('hidden-form').style.display = "none";
-}
-
-</script>
