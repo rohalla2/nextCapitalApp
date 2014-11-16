@@ -19,8 +19,9 @@ class User < ActiveRecord::Base
   		#make registration api call
   		puts "Registering with API" 
 
-  		call = "http://recruiting-api.nextcapital.com/users?email=#{self.email}&password=#{self.password}"
-  		url = HTTParty.post(call)
+      options = { query: {email: self.email, password: self.password}}     
+  		call = "http://recruiting-api.nextcapital.com/users"
+  		url = HTTParty.post(call, options)
   		response = JSON.parse(url.body)
   		#save remote userID
   		puts "XXXXRESPONSEXXXX"

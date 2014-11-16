@@ -1,6 +1,6 @@
 <h4>Your Tasks:</h4>
 <div class="btn btn-success pull-right">Add Task</div>
-<% if @todos['error'] %>
+<% if @todos.size == 0 %>
 <p>You do not currently have any todos!</p>
 <% else %>
 <% @todos.each do |todo| %>
