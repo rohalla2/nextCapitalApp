@@ -11,4 +11,4 @@
 # if you're sharing your code publicly.
 secret = Rails.env.production? ? ENV['SECRET_TOKEN'] : "df41cd01eea405dcb51bf35d6ccfbd5c763b9d66d5834c7daf73b10e50b5f490e7f789d61fbb76c4d0061f1cf3406e0925282a7e239fc74981093871b4f18c02
 "
-YourApp::Application.config.secret_key_base = secret
+NextCapitalApp::Application.config.secret_key_base = secret
