@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   		call = "http://recruiting-api.nextcapital.com/users/#{session[:id]}/todos"
   		url = HTTParty.post(call, options)
   		response = JSON.parse(url.body)
-		redirect_to users_path
+		redirect_to '/users'
 	end
 
 	def update
