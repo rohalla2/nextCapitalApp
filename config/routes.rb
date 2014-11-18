@@ -1,8 +1,12 @@
 NextCapitalApp::Application.routes.draw do
   root 'static_pages#home'
   get 'information' => 'static_pages#information'
-  resources :users, except: [:edit, :destroy, :update]
-
+ 
+  controller :users do
+    post 'users' => :create
+    get 'users' => :show
+    get 'users/new' => :new
+  end
   controller :sessions do
     get 'login' => :new
     post 'login' => :create

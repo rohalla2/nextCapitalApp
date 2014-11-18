@@ -34,9 +34,9 @@
     <ul class="nav navbar-nav">
      <li><%= link_to "Information", "/information" %></li>
     </ul>
-    <% if @user.nil? || @user.new_record? %>
+    <% if session[:id].nil? %>
     <ul class="nav navbar-nav navbar-right">
-      <li><%= link_to "Sign Up", new_user_path %></li>
+      <li><%= link_to "Sign Up", '/users/new' %></li>
     </ul>
     <div class="navbar-form navbar-right">
       <%= render 'sessions/form' %>
@@ -44,14 +44,14 @@
 
     <% else %>
     <%= button_to 'Logout', logout_path, class: "btn btn-danger pull-right", method: :delete %>
-    <%= link_to 'Your Profile', user_path(@user), class: "btn btn-success pull-right" %>
+    <%= link_to 'Your Profile', users_path, class: "btn btn-success pull-right" %>
     <% end %>    
   </div>
   
   <div class="container">
-    <% if @user && !@user.new_record? %>
+    <% if !session[:id].nil? %>
     <p class="lead">
-      <%= "Welcome, #{@user.email}" %>
+      <%= "Welcome, #{session[:email]}" %>
     </p>
     <% end %>
 

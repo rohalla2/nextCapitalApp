@@ -1,42 +1,38 @@
 class UsersController < ApplicationController
-  
-  before_action :authorize, except: [:new, :create]
 
   # GET /users
-  def index
-    redirect_to @user
-  end
-
-  # GET /users/1
-  # GET /users/1.json
   def show
-    call = "http://recruiting-api.nextcapital.com/users/#{@user.remote_id}/todos.json?api_token=#{@user.api_token}"
+    call = "http://recruiting-api.nextcapital.com/users/#{session[:id]}/todos.json?api_token=#{session[:api_token]}"
     url = HTTParty.get(call)
     @todos = JSON.parse(url.body)
   end
 
-  # GET /users/new
-  def new
-    @user = User.new
-  end
-
   # POST /users
   def create
-    @user = User.new(user_params)
-
-    respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-      else
-        format.html { render action: 'new' }
-      end
+    #check that passwords match
+    if params['password'] != params['password_confirmation']
+      redirect_to '/users/new', notice: "Passwords did not match!" and return
     end
+      #register with service
+        
+      options = { query: {email: params['email'], password: params['password']}}     
+      call = "http://recruiting-api.nextcapital.com/users"
+      url = HTTParty.post(call, options)
+      response = JSON.parse(url.body)
+      #save remote userID
+      
+      if response["email"] == params['email']
+        session[:id] = response["id"]
+        session[:api_token] = response["api_token"]
+        session[:email] = response["email"]
+        redirect_to '/users' and return
+      else
+        redirect_to '/users/new', notice: 'Email has already been registered!' and return
+
+      end
+
+    
   end
 
-  private
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:email, :password, :password_confirmation)
-    end
 end
+
